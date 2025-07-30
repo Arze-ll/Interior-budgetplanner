@@ -25,7 +25,7 @@ struct Expense {
 };
 
 vector<Expense> expensesList; // List holding all expenses
-double totalBudget = 0.0;     // User’s total budget for the project
+double totalBudget = 0.0;     // Userâ€™s total budget for the project
 
 // Function to set the total budget with optional $ sign input
 void setBudget() {
@@ -335,7 +335,6 @@ int main() {
         if (!(ss >> choice) || choice < 1 || choice > 8) {
             cout << "\nInvalid choice. Please try again.\n";
             continue; // Restart the loop without executing switch-case
-
         }
 
         switch (choice) {
