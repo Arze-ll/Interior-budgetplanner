@@ -197,12 +197,12 @@ void viewSummary() {
     double totalSpent = 0.0;
     cout << fixed << setprecision(2);
 
-    cout << "\n==========================================\n";
-    cout << "     INTERIOR DESIGN BUDGET SUMMARY\n";
-    cout << "==========================================\n";
+    cout << "\n===================================================\n";
+    cout << "           INTERIOR DESIGN BUDGET SUMMARY\n";
+    cout << "===================================================\n";
 
     for (const Expense& exp : expensesList) {
-        cout << "\n------------------------------------------\n";
+        cout << "\n---------------------------------------------------\n";
         cout << "Category     : " << exp.category << "\n";
         cout << "Item         : " << exp.itemName << "\n";
         cout << "Quantity     : " << exp.quantity << "\n";
@@ -211,7 +211,7 @@ void viewSummary() {
         totalSpent += exp.totalCost;
     }
 
-    cout << "\n==========================================\n";
+    cout << "\n===================================================\n";
     cout << "Total Spent      : $" << totalSpent << "\n";
     cout << "Total Budget     : $" << totalBudget << "\n";
 
@@ -222,7 +222,7 @@ void viewSummary() {
         cout << "Remaining Budget : $" << totalBudget - totalSpent << "\n";
     }
 
-    cout << "==========================================\n";
+    cout << "===================================================\n";
 }
 
 // Save current data to file
@@ -282,30 +282,49 @@ void loadFromFile() {
     cout << "\nDesign project data loaded successfully.\n";
 }
 
-// Main menu
+// Welcome message and main menu
 int main() {
     cout << "==================================================\n";
     cout << "   Welcome to the Interior Design Budget Planner\n";
     cout << "==================================================\n";
     cout << "  Track and manage your renovation or decorating\n";
-    cout << "  expenses, room by room and item by item.\n";
+    cout << "     expenses, room by room and item by item.\n";
 
     int choice;
 
     do {
-        cout << "\n--------------------------\n";
-        cout << "          MAIN MENU\n";
-        cout << "--------------------------\n";
-        cout << "1. Set Project Budget\n";
-        cout << "2. Add a Design Expense\n";
-        cout << "3. Edit a Design Expense\n";
-        cout << "4. Delete a Design Expense\n";
-        cout << "5. View Project Summary\n";
-        cout << "6. Save Project to File\n";
-        cout << "7. Load Project from File\n";
-        cout << "8. Exit Program\n";
-        cout << "--------------------------\n";
-        cout << "Enter your choice: ";
+        cout << "\n--------------------------------------------------\n";
+        cout << "          INTERIOR DESIGN BUDGET PLANNER\n";
+        cout << "                  MAIN MENU\n";
+        cout << "--------------------------------------------------\n";
+
+        cout << "1. Set Budget\n"
+            << "   - Define or update your total spending limit\n\n";
+
+        cout << "2. Add Expense\n"
+            << "   - Record a new purchase or service\n\n";
+
+        cout << "3. Edit Expense\n"
+            << "   - Update details of an existing expense\n\n";
+
+        cout << "4. Delete Expense\n"
+            << "   - Remove an item from your list\n\n";
+
+        cout << "5. View Summary\n"
+            << "   - See total spending and remaining budget\n\n";
+
+        cout << "6. Save Project\n"
+            << "   - Save your data to a file\n\n";
+
+        cout << "7. Load Project\n"
+            << "   - Open a previously saved project\n\n";
+        
+        cout << "8. Exit Program\n"
+            << "   - Close the planner. Be sure to save!\n";
+
+        cout << "--------------------------------------------------\n";
+        cout << "Enter your choice (1-8): ";
+
 
         string input;
         getline(cin, input);
@@ -323,10 +342,30 @@ int main() {
         case 5: viewSummary(); break;
         case 6: saveToFile(); break;
         case 7: loadFromFile(); break;
-        case 8: cout << "\nThank you for using the Interior Design Budget Planner. Goodbye!\n"; break;
-        }
+        case 8: {
+            char saveChoice;
+            while (true) {
+                cout << "\nWould you like to save your project before exiting? (Y/N): ";
+                cin >> saveChoice;
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
+                saveChoice = tolower(saveChoice);
+                if (saveChoice == 'y') {
+                    saveToFile();
+                    break;
+                }
+                else if (saveChoice == 'n') {
+                    break;
+                }
+                else {
+                    cout << "\nInvalid input. Please enter Y or N.\n";
+                }
+            }
+ 
+            cout << "\nThank you for using the Interior Design Budget Planner. Goodbye!\n"; break;
+          }
+        }
     } while (choice != 8);
 
-    return 0;
-}
+            return 0;
+    }
